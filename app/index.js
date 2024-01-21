@@ -106,4 +106,4 @@ export default function App() {
 
 /* Alerta dizendo que ta correta */
 /* Opção para voltar no final do quiz */
-/*  */
+/*  ! */
