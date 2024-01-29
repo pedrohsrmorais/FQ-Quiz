@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Octicons';
 const ClickableIcon = ({ iconName, label, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={{ alignItems: 'center' }}>
-      <Icon name={iconName} size={60} color="#009" />
+      <Icon name={iconName} size={60} color="#1e0ac8" />
       <Text>{label}</Text>
     </TouchableOpacity>
   );

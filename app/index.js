@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Button, Image } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ClickableIcon from "./icons/icon";
 import { router } from 'expo-router';
+
+//componentes
+import ClickableIcon from "./components/icon";
+import Header from "./components/header";
 
 export default function App() {
 
@@ -22,13 +25,13 @@ export default function App() {
 
             // Se o valor não estiver definido então é 0
             await AsyncStorage.setItem('progresso1', '0');
-            console.log('Progresso 1 foi definido como 0');
+
 
         } else {
 
             // O valor já existe
             const progressoNumero1 = parseInt(progressoValue1, 10);
-            console.log('Valor atual do progresso 1 :', progressoNumero1);
+
 
         }
 
@@ -36,14 +39,14 @@ export default function App() {
 
             // Se o valor não estiver definido então é 0
             await AsyncStorage.setItem('progresso4', '0');
-            console.log('Progresso 4 foi definido como 0');
+
 
 
         } else {
 
             // O valor já existe
             const progressoNumero4 = parseInt(progressoValue4, 10);
-            console.log('Valor atual do progresso 4 :', progressoNumero4);
+
 
         }
 
@@ -69,7 +72,7 @@ export default function App() {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#f0f9f9',
+            backgroundColor: '#ffffff',
             paddingHorizontal: 20,
         },
         iconsContainer: {
@@ -82,10 +85,16 @@ export default function App() {
             marginBottom: 60,
             width: '40%', // Ajuste a largura para ocupar aproximadamente metade da largura do contêiner
         },
+       
+        
     });
 
     return (
+
+    
         <View style={styles.container}>
+            <Header /> 
+            
             <View style={styles.iconsContainer}>
                 {icons.map((icon, index) => (
                     <View style={styles.icon} key={index}>
@@ -98,6 +107,7 @@ export default function App() {
                 onPress={handmemory}
             />
         </View>
+
 
     );
 

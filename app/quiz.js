@@ -2,7 +2,8 @@ import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { router } from 'expo-router';
 
-
+//Componentes
+import Header from "./components/header";
 
 export default function QuizScreen() {
 
@@ -14,7 +15,7 @@ export default function QuizScreen() {
 
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#f0f9f9',
+            backgroundColor: '#ffffff',
             paddingHorizontal: 20,
         },
 
@@ -57,6 +58,7 @@ export default function QuizScreen() {
     return (
 
         <View style={styles.container}>
+            <Header />
 
 
             <View style={styles.levelsContainer}>
