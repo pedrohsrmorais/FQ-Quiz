@@ -1,11 +1,11 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
 //componentes
-import Header from "./components/header";
+import Header from "../components/header";
 
 
-export default function TutorialScreen() {
+export default function Equilibrio() {
 
 
    //////////STYLES
@@ -23,7 +23,8 @@ export default function TutorialScreen() {
   return (
     <View  style={styles.container}>
       < Header />
-        <Text> Como realizar as tarefas:</Text>
+        <Text> Equilibrio quimico </Text>
+        
 
     </View>
   );

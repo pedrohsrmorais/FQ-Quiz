@@ -85,16 +85,16 @@ export default function App() {
             marginBottom: 60,
             width: '40%', // Ajuste a largura para ocupar aproximadamente metade da largura do contêiner
         },
-       
-        
+
+
     });
 
     return (
 
-    
+
         <View style={styles.container}>
-            <Header /> 
-            
+            <Header />
+
             <View style={styles.iconsContainer}>
                 {icons.map((icon, index) => (
                     <View style={styles.icon} key={index}>
@@ -102,10 +102,14 @@ export default function App() {
                     </View>
                 ))}
             </View>
+ 
+            
             <Button
                 title="Zerar memória (dev)"
                 onPress={handmemory}
             />
+
+  
         </View>
 
 

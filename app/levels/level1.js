@@ -3,25 +3,38 @@ import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+//Componentes
+import BackButton from "../components/backbutton";
+import Header from "../components/header";
+
 
 export default function Level1() {
 
-    const progress = async () => {
-        return await AsyncStorage.getItem('progresso1');
-    }
 
-    const [questionNumber, setquestionNumber] = useState();
+
+    const [questionNumber, setquestionNumber] = useState(0);
     const [rightQuestion, setrightQuestion] = useState();
+    const [loading, setloading] = useState(false);
 
     useEffect(() => {
+        const progress = async () => {
+            return await AsyncStorage.getItem('progresso1');
+        }
+
         progress().then((result) => {
             const parsedResult = parseInt(result, 10);
             setquestionNumber(parsedResult);
             setrightQuestion(parsedResult);
         });
+
+        const timeout = setTimeout(() => {
+            setloading(true);
+          }, 300);
+          return () => clearTimeout(timeout);
+
     }, []);
 
-    ////////////////////////////////////Datas de perguntas e respostas para o level 1
+    ////////////////////////////////////Dataframe de perguntas e respostas para o level 1
     const level1_data = [
         {
             id: 0,
@@ -94,13 +107,14 @@ export default function Level1() {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#f0f9f9',
+            backgroundColor: '#ffffff',
             paddingHorizontal: 20,
         },
         questionContainer: {
 
             width: 300,
             marginBottom: 20,
+            marginTop: 40,
             backgroundColor: '#ffffff',
             padding: 20,
             borderRadius: 10,
@@ -122,7 +136,7 @@ export default function Level1() {
         optionButton: {
             padding: 10,
             marginVertical: 12,
-            backgroundColor: '#4e2ef0',
+            backgroundColor: '#144696',
             borderRadius: 8,
             alignItems: 'center',
         },
@@ -148,43 +162,55 @@ export default function Level1() {
         },
     });
 
-    return (
-        <View style={styles.container}>
-            {level1_data[questionNumber] ? (
-                <View style={styles.questionContainer}>
-                    <Text style={styles.questionText}>
-                        {level1_data[questionNumber]?.question}
-                    </Text>
-                    {level1_data[questionNumber].options.map((item, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            style={styles.optionButton}
-                            onPress={() => handleAnswer(item)}>
-                            <Text style={styles.optionText}>{item}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            ) : (
-                <Text style={styles.endText}>Fim do questionário</Text>
-            )}
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <Header />
 
-            <View style={styles.buttonContainer}>
-                <Button
-                    title="Questão anterior"
-                    onPress={previousQuestion}
-                    color="#648efa"
-                    disabled={questionNumber === 0}
-                />
-                <View style={{ marginRight: 20 }} />
-                <Button
-                    title="Próxima questão"
-                    onPress={nextQuestion}
-                    color="#648efa"
-                    disabled={questionNumber === level1_data.length}
-                />
+                {level1_data[questionNumber] ? (
+                    <View style={styles.questionContainer}>
+                        <Text style={styles.questionText}>
+                            {level1_data[questionNumber]?.question}
+                        </Text>
+                        {level1_data[questionNumber].options.map((item, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                style={styles.optionButton}
+                                onPress={() => handleAnswer(item)}>
+                                <Text style={styles.optionText}>{item}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                ) : (
+                    <Text style={styles.endText}>Fim do questionário</Text>
+                )}
+
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Questão anterior"
+                        onPress={previousQuestion}
+                        color="#648efa"
+                        disabled={questionNumber === 0}
+                    />
+                    <View style={{ marginRight: 20 }} />
+                    <Button
+                        title="Próxima questão"
+                        onPress={nextQuestion}
+                        color="#648efa"
+                        disabled={questionNumber === rightQuestion}
+                    />
+                </View>
+                <BackButton />
             </View>
+        );
+    } else {
+        return (
+        <View style={styles.container}> 
+        <Header />
+            <Text style={styles.questionText}> Carregando... </Text> 
         </View>
-    );
+            )
+    }
 };
 
 

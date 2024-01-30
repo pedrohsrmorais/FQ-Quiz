@@ -5,6 +5,7 @@ import { router } from 'expo-router';
 //Componentes
 import Header from "./components/header";
 
+
 export default function QuizScreen() {
 
 
@@ -81,6 +82,7 @@ export default function QuizScreen() {
                     </TouchableOpacity>
                 </View>
             </View>
+
         </View>
     );
 

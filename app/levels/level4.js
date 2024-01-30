@@ -22,7 +22,7 @@ export default function Level4() {
     });
   }, []);
 
-  ////////////////////////////////////Datas de perguntas e respostas para o level 1
+  ////////////////////////////////////Dataframe de perguntas e respostas para o level 4
   const level4_data = [
     {
       id: 0,
@@ -106,7 +106,7 @@ export default function Level4() {
     optionButton: {
       padding: 10,
       marginVertical: 12,
-      backgroundColor: '#4e2ef0',
+      backgroundColor: '#144696', 
       borderRadius: 8,
       alignItems: 'center',
     },
@@ -131,10 +131,10 @@ export default function Level4() {
       color: '#ffffff',
     },
     input: {
-      borderWidth: 1, // Adiciona uma borda
-      borderColor: 'black', // Define a cor da borda como preta
-      borderRadius: 8, // Opcional: Adiciona cantos arredondados
-      padding: 10, // Opcional: Adiciona um preenchimento interno
+      borderWidth: 1, 
+      borderColor: 'black', 
+      borderRadius: 8, 
+      padding: 10, 
       color: '#648efa',
       marginBottom: 20,
     },
