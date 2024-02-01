@@ -1,6 +1,6 @@
 import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { router } from 'expo-router';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Alert } from "react-native";
+import RNFS from 'react-native-fs';
 
 //componentes
 import ClickableIcon from "./components/icon";
@@ -8,6 +8,28 @@ import Header from "./components/header";
 
 
 export default function LibraryScreen() {
+
+
+  const downloadPdf = async (library_path) => {
+    const sourcePath = RNFS.DocumentDirectoryPath + library_path
+
+    try {
+      // Copia o arquivo do diretório de ativos para o armazenamento do dispositivo
+      await RNFS.copyFileAssets(library_path, sourcePath);
+
+      // Abre o PDF após a cópia bem-sucedida
+      showPDF(sourcePath);
+    } catch (error) {
+      console.error('Error copying or opening PDF', error);
+      Alert.alert('Error', 'Failed to copy or open the PDF.');
+    }
+  };
+
+  const showPDF = (filePath) => {
+    // Implemente a lógica para exibir o PDF aqui
+    console.log('Abrir PDF em:', filePath);
+    // Pode ser aberto com a biblioteca RNCustomPDFView ou outra biblioteca de visualização de PDF
+  };
 
   const icon = [{ iconName: 'book', label: ' ', onPress: () => { } },
   ];
@@ -40,14 +62,10 @@ export default function LibraryScreen() {
     buttonContainer: {
 
       marginVertical: 12,
-      borderRadius: 8,
-      borderRadius: 40,
       padding: 10,
-      marginVertical: 12,
       backgroundColor: '#171a66',
       borderRadius: 40,
       alignItems: 'center',
-
 
     },
     buttonText: {
@@ -79,43 +97,39 @@ export default function LibraryScreen() {
 
 
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/gases')}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => downloadPdf('../fq_library/gas_ideal.pdf')}>
             <Text style={styles.buttonText}>Gases</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/combustao')}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => downloadPdf('fq_library/combustao.pdf')}>
             <Text style={styles.buttonText}>Combustão</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/entalpia')}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => downloadPdf('fq_library/entalpia.pdf')}>
             <Text style={styles.buttonText}>Entalpia</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/entropia')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => downloadPdf('fq_library/entropia.pdf')} >
             <Text style={styles.buttonText}>Entropia</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/temperatura')} >
-            <Text style={styles.buttonText}>Temperatura</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/energia_livre')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => downloadPdf('fq_library/energia_livre.pdf')} >
             <Text style={styles.buttonText}>Energia Livre</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/estado')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log('fq_library/estado.pdf')} >
             <Text style={styles.buttonText}>Mudança de estados</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/equilibrio')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => downloadPdf('fq_library/equilibrio.pdf')} >
             <Text style={styles.buttonText}>Equilibrio químico</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/diagrama')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log('fq_library/diagrama.pdf')} >
             <Text style={styles.buttonText}>Diagrama de fases</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/fq_library/absorbancia')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log('fq_library/absorbancia.pdf')} >
             <Text style={styles.buttonText}>Absorbância</Text>
           </TouchableOpacity>
         </ScrollView>
