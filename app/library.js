@@ -1,75 +1,29 @@
 import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { useState } from "react";
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Image } from "react-native";
+import { router } from "expo-router";
 
-
-// componentes
+// Components
 import ClickableIcon from "./components/icon";
 import Header from "./components/header";
 
 export default function LibraryScreen() {
 
+  const [png_src, setpng_src] = useState(null)
 
-  openPdf = (path) =>{
-    console.log(path)
+  function openPng(src_name) {
+
+    router.push({
+      pathname: "./components/reader",
+      params: {
+        src_name: src_name,
+      },
+    });
+
   }
-/*
-  const openPdf = async (path) => {
-    try {
-
-      const uri = FileSystem.documentDirectory + path;
-      console.log(uri)
-      const cUri = await FileSystem.getContentUriAsync(uri);
-      console.log(cUri)
-
-      await IntentLauncher.startActivityAsync("android.intent.action.VIEW", {
-        data: cUri,
-        type: "application/pdf",
-      });
-    } catch (e) {
-      console.log("erro");
-    }
-  };
-
-  const openPdf2 = async (path) => {
-    try {
-
-      const uri = FileSystem.documentDirectory + path;
-      console.log(uri)
-      const cUri = await FileSystem.getContentUriAsync(uri);
-
-      await IntentLauncher.startActivityAsync("android.intent.action.VIEW", {
-        data: cUri,
-        flags: 1,
-        type: "application/pdf",
-      });
-    } catch (e) {
-      console.log("erro");
-    }
-  };
-
-  const openPdf3 = async (path) => {
-    try {
-      // Caminho para o arquivo PDF local 
-      const pdfPath = FileSystem.documentDirectory + path;
-
-      // Leitura do conteúdo do arquivo
-      const fileContent = await FileSystem.readAsStringAsync(pdfPath, { encoding: FileSystem.EncodingType.Base64 });
-
-      // Crie um data URI a partir do conteúdo do arquivo
-      const dataUri = `data:application/pdf;base64,${fileContent}`;
-
-      // Abra o PDF usando expo-linking
-      await Linking.openURL(dataUri);
-
-    } catch (e) {
-      console.error('Error opening local PDF');
-    }
-  };
- 
-
-   */
 
   const icon = [{ iconName: 'book', label: ' ', onPress: () => { } }];
+
   //////////STYLES
   const styles = StyleSheet.create({
     container: {
@@ -79,7 +33,7 @@ export default function LibraryScreen() {
       backgroundColor: '#ffffff',
       paddingHorizontal: 20,
     },
-    levelsContainer: {
+    srcContainer: {
       height: 400,
       marginBottom: 20,
       backgroundColor: '#ffffff',
@@ -104,49 +58,52 @@ export default function LibraryScreen() {
       color: '#ffffff',
       fontWeight: 'bold',
     },
-    imagemStyle: {
-      position: 'absolute',
-      width: 400,
-      height: 550,
-      resizeMode: 'cover',
-    }
   });
 
   return (
     <View style={styles.container}>
       <Header />
-      <ClickableIcon {...icon[0]} />
-      <View style={styles.levelsContainer}>
+      {png_src === null && <ClickableIcon {...icon[0]} />}
+
+      <View style={styles.srcContainer}>
         <ScrollView>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('fq_library/gas_ideal.pdf')}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('gas_ideal')}>
             <Text style={styles.buttonText}>Gases</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('./fq_library/combustao.pdf')}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('combustao')}>
             <Text style={styles.buttonText}>Combustão</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('entalpia.pdf')}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('entalpia')}>
             <Text style={styles.buttonText}>Entalpia</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('entropia.pdf')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('entropia')} >
             <Text style={styles.buttonText}>Entropia</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('energia_livre.pdf')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('energia_livre')} >
             <Text style={styles.buttonText}>Energia Livre</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('fq_library/estado.pdf')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('estados')} >
             <Text style={styles.buttonText}>Mudança de estados</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('fq_library/equilibrio.pdf')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('equilibrio')} >
             <Text style={styles.buttonText}>Equilibrio químico</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('fq_library/diagrama.pdf')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('fases')} >
             <Text style={styles.buttonText}>Diagrama de fases</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPdf('fq_library/absorbancia.pdf')} >
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => openPng('absorbancia')} >
             <Text style={styles.buttonText}>Absorbância</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
+
+
+      {png_src !== null && Object.keys(png_src).map((key, index) => (
+        <Image source={png_src[key]} key={index} style={styles.imagem_lib_Style} />
+      ))}
+
+
+
     </View>
   );
 }

@@ -16,40 +16,25 @@ export default function App() {
         { iconName: 'people', label: 'About', onPress: () => router.push('/about') },
     ];
 
-
     const Progresso = async () => {
         const progressoValue1 = await AsyncStorage.getItem('progresso1');
         const progressoValue4 = await AsyncStorage.getItem('progresso4');
 
         if (progressoValue1 === null) {
-
             // Se o valor não estiver definido então é 0
             await AsyncStorage.setItem('progresso1', '0');
-
-
         } else {
-
             // O valor já existe
             const progressoNumero1 = parseInt(progressoValue1, 10);
-
-
         }
 
         if (progressoValue4 === null) {
-
             // Se o valor não estiver definido então é 0
             await AsyncStorage.setItem('progresso4', '0');
-
-
-
         } else {
-
             // O valor já existe
             const progressoNumero4 = parseInt(progressoValue4, 10);
-
-
         }
-
     };
 
     useEffect(() => {
