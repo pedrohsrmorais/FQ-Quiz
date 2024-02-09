@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, Image } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Image, Dimensions, ScrollView, FlatList, Text } from "react-native";
 import { router, useLocalSearchParams } from 'expo-router'
 
+import Header from './header';
 
 
 //Requires
@@ -60,65 +61,127 @@ const gas_ideal_src = {
 
 const Reader = () => {
 
+    const [imgActive, setimgActive] = useState(absorbancia_src);
+    const [loading, setloading] = useState(false);
+
     useEffect(() => {
 
 
+        console.log(name.src_name)
+        switch (name.src_name) {
+            case 'absorbancia':
+                setimgActive(absorbancia_src)
+
+                break;
+            case 'combustao':
+                setimgActive(combustao_src)
+
+                break;
+            case 'energia_livre':
+                setimgActive(energia_livre_src)
+
+                break;
+            case 'entalpia':
+                setimgActive(entalpia_src)
+
+                break;
+            case 'entropia':
+                setimgActive(entropia_src)
+
+                break;
+            case 'equilíbrio':
+                setimgActive(equilibrio_src)
+
+                break;
+            case 'estados':
+                setimgActive(estados_src)
+
+                break;
+            case 'fases':
+                setimgActive(fases_src)
+
+                break;
+            case 'gas_ideal':
+                setimgActive(gas_ideal_src)
+        }
+
+        const timeout = setTimeout(() => {
+            setloading(true);
+        }, 400);
+        return () => clearTimeout(timeout);
     }, []);
+
+
 
     const name = useLocalSearchParams();
 
-    switch (name.src_name) {
-        case 'absorbancia':
-            
-            break;
-        case  'combustao':
 
-            break;
-        case 'energia_livre':
+    const width_view = Dimensions.get('window').width + 100
+    const height_view = Dimensions.get('window').height
 
-            break;
-        case 'entalpia':
-
-            break;
-        case 'entropia':
-
-            break;
-        case 'equilíbrio':
-
-            break;
-        case 'estados':
-
-            break;
-        case 'fases':
-            
-            break;
-    }
-
-    //////////STYLES
+    /////////STYLES
     const styles = StyleSheet.create({
         container: {
-            position: 'absolute',
-            top: 0,
-            left: 0,
+            flex: 1,
+
+        },
+        scrollView: {
+            flex: 1,
+            flexDirection: 'row',
+
         },
         imagemStyle: {
-            position: 'absolute',
-
-            width: 500,
-            height: 70,
-            resizeMode: 'cover',
+            width: Dimensions.get('window').width, // Largura da tela
+            height: Dimensions.get('window').height, // Altura ajustada proporcionalmente
+            resizeMode: 'stretch',
             opacity: 1,
+            marginLeft: 0,
+            marginRight: 0,
+        },
+        questionText: {
+            fontSize: 22,
+            fontWeight: 'bold',
+            color: '#333333',
+            textAlign: 'center',
+            fontStyle: 'italic',
+            paddingBottom: 30,
+            paddingTop: 200,
         },
     });
 
-    return (
-        <View style={styles.container}>
-            <Image
-                source={gas_ideal_src}
-                style={styles.imagemStyle}
-            />
-        </View>
-    );
+
+    // Convert imgActive object values to an array
+    const imgActiveArray = Object.values(imgActive);
+    if (loading){
+        return (
+            <View style={styles.container}>
+                <ScrollView
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    style={styles.scrollView}
+                >
+                    <FlatList
+                        data={imgActiveArray}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => (
+                            <Image
+                                source={item}
+                                style={styles.imagemStyle}
+                            />
+                        )}
+                    />
+                </ScrollView>
+            </View>
+        );
+    }else {
+        return (
+            <View style={styles.container}>
+
+                <Text style={styles.questionText}> Carregando... </Text>
+            </View>
+        )
+    }
 };
 
 export default Reader;
