@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -9,8 +8,6 @@ import Header from "../components/header";
 
 
 export default function Level1() {
-
-
 
     const [questionNumber, setquestionNumber] = useState(0);
     const [rightQuestion, setrightQuestion] = useState();
@@ -139,7 +136,7 @@ export default function Level1() {
     ];
 
 
-
+    //////FUNCTIONS
     function nextQuestion() {
 
 
@@ -172,7 +169,7 @@ export default function Level1() {
         }
     }
 
-    //////////STYLES
+    //////////STYLES --
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -233,6 +230,7 @@ export default function Level1() {
         },
     });
 
+    //////RETURNS
     if (loading) {
         return (
             <View style={styles.container}>

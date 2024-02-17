@@ -64,21 +64,16 @@ export default function QuizScreen() {
 
             <View style={styles.levelsContainer}>
                 <View >
-
                     <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/levels/level1')}>
                         <Text style={styles.buttonText}>Level 1</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.buttonContainer} >
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/levels/level2')}>
                         <Text style={styles.buttonText}>Level 2</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.buttonContainer} >
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/levels/level3')} >
                         <Text style={styles.buttonText}>Level 3</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/levels/level4')} >
-                        <Text style={styles.buttonText}>Level 4</Text>
                     </TouchableOpacity>
                 </View>
             </View>

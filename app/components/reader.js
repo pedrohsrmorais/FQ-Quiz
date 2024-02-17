@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, Dimensions, ScrollView, FlatList, Text } from "react-native";
-import { router, useLocalSearchParams } from 'expo-router'
-
-import Header from './header';
+import { useLocalSearchParams } from 'expo-router'
 
 
 //Requires
@@ -67,7 +65,6 @@ const Reader = () => {
     useEffect(() => {
 
 
-        console.log(name.src_name)
         switch (name.src_name) {
             case 'absorbancia':
                 setimgActive(absorbancia_src)

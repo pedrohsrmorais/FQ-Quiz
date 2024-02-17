@@ -18,7 +18,8 @@ export default function App() {
 
     const Progresso = async () => {
         const progressoValue1 = await AsyncStorage.getItem('progresso1');
-        const progressoValue4 = await AsyncStorage.getItem('progresso4');
+        const progressoValue2 = await AsyncStorage.getItem('progresso2');
+        const progressoValue3 = await AsyncStorage.getItem('progresso3');
 
         if (progressoValue1 === null) {
             // Se o valor não estiver definido então é 0
@@ -28,12 +29,20 @@ export default function App() {
             const progressoNumero1 = parseInt(progressoValue1, 10);
         }
 
-        if (progressoValue4 === null) {
+        if (progressoValue2 === null) {
             // Se o valor não estiver definido então é 0
-            await AsyncStorage.setItem('progresso4', '0');
+            await AsyncStorage.setItem('progresso2', '0');
         } else {
             // O valor já existe
-            const progressoNumero4 = parseInt(progressoValue4, 10);
+            const progressoNumero4 = parseInt(progressoValue2, 10);
+        }
+
+        if (progressoValue3 === null) {
+            // Se o valor não estiver definido então é 0
+            await AsyncStorage.setItem('progresso3', '0');
+        } else {
+            // O valor já existe
+            const progressoNumero4 = parseInt(progressoValue3, 10);
         }
     };
 
@@ -47,7 +56,8 @@ export default function App() {
     handmemory = async () => {
 
         await AsyncStorage.setItem('progresso1', '0');
-        await AsyncStorage.setItem('progresso4', '0');
+        await AsyncStorage.setItem('progresso2', '0');
+        await AsyncStorage.setItem('progresso3', '0');
 
     }
 
